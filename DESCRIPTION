@@ -10,7 +10,7 @@ Depends:
     R (>= 3.0.2)
 Imports:
     tools,
-    roxygen2 (>= 6.0.1)
+    roxygen2 (>= 7.0.1)
 License: Apache License (== 2.0) | file LICENSE
 LazyData: true
 Encoding: UTF-8
@@ -24,3 +24,4 @@ Remotes:
     hadley/testthat,
     klutometis/roxygen
 VignetteBuilder: knitr
+RoxygenNote: 6.1.99.9001

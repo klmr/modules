@@ -1,35 +1,20 @@
-roxygen2_parse_code = function(file, env, registry, old_roxy) {
-    if (old_roxy) {
-        roxygen2:::parse_blocks(file, env, registry = registry)
-    } else {
-        roxygen2::parse_file(file, env, registry = registry)
-    }
-}
-
 parse_documentation = function (module) {
-    old_roxy = packageVersion('roxygen2') < '6.1.0'
     module_path = module_path(module)
-
     roclet = roxygen2::rd_roclet()
-    registry = roxygen2::roclet_tags(roclet)
 
     parsed = list(
         env = module,
-        blocks = roxygen2_parse_code(module_path, module, registry, old_roxy)
+        blocks = roxygen2::parse_file(module_path, module)
     )
-    rdfiles = if (old_roxy) {
-        roxygen2::roclet_process(roclet, parsed = parsed, base_path = dirname(module_path))
-    } else {
-        roxygen2::roclet_process(
-            roclet,
-            blocks = parsed$blocks,
-            env = parsed$env,
-            base_path = dirname(module_path)
-        )
-    }
+    rdfiles = roxygen2::roclet_process(
+        roclet,
+        blocks = parsed$blocks,
+        env = parsed$env,
+        base_path = dirname(module_path)
+    )
 
     # Due to aliases, documentation entries may have more than one name.
-    aliases = lapply(rdfiles, function (rd) unique(rd$fields$alias$values))
+    aliases = lapply(rdfiles, function (rd) unique(rd$get_section('alias')$value))
     names = rep(names(aliases), lengths(aliases))
     docs = setNames(rdfiles[names], unlist(aliases))
     lapply(docs, format, wrap = FALSE)
