@@ -1,3 +1,6 @@
+* 0.9.13:
+    * Fix: Ensure global environment does not leak into module namespaces (#151)
+
 * 0.9.12:
     * Fix: Update to new roxygen2 version 7 API (#150)
 
