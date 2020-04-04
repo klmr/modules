@@ -213,7 +213,7 @@ do_import = function (module_name, module_path, doc) {
     helper_env = list2env(c(modules_exports,
                             list(export_submodule = export_submodule,
                                  export_submodule_ = export_submodule_)),
-                          parent = .BaseNamespaceEnv)
+                          parent = as.environment(2L))
 
     # The namespace contains a module’s content. This schema is very much like
     # R package organisation.
