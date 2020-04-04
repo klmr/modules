@@ -64,3 +64,13 @@ test_that('module bindings are locked', {
     err = try({a$counter = 2}, silent = TRUE)
     expect_that(class(err), equals('try-error'))
 })
+
+test_that('global scope is not leaking into modules', {
+    local({
+        on.exit(rm(x))
+        x = 1L
+        expect_error(import('issue151'), 'object .* not found')
+
+        expect_error(import('issue151_a'), NA)
+    }, envir = .GlobalEnv)
+})
