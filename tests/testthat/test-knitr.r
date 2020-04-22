@@ -2,23 +2,29 @@ context('Test that modules works with knitr')
 
 check_knitr = function () skip_if_not_installed('knitr')
 
+safe_unload_namespace = function (ns) {
+    users = getNamespaceUsers(ns)
+    for (user in users) safe_unload_namespace(user)
+    unloadNamespace(ns)
+}
+
 test_that('modules are found when knitr is not loaded', {
     check_knitr()
     # Ensure knitr isn’t loaded
-    unloadNamespace('knitr')
+    safe_unload_namespace('knitr')
     expect_paths_equal(script_path(), getwd())
 })
 
 test_that('modules are found when knitr is loaded', {
     check_knitr()
     loadNamespace('knitr')
-    on.exit(unloadNamespace('knitr'))
+    on.exit(safe_unload_namespace('knitr'))
     expect_paths_equal(script_path(), getwd())
 })
 
 test_that('modules are found inside a knitr document', {
     check_knitr()
-    on.exit(unloadNamespace('knitr'))
+    on.exit(safe_unload_namespace('knitr'))
 
     input = 'support/knitr/doc.rmd'
     # Ensure that a different working directory is used.
