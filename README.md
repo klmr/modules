@@ -15,7 +15,7 @@ Table of contents
 * [Feature comparison][wiki:feature-comparison]
 * [Design rationale][wiki:design]
 
-[vignette]: inst/doc/basic_usage.md
+[vignette]: ../master/doc/basic-usage.md
 [wiki:feature-comparison]: ../../wiki/Feature-comparison
 [wiki:design]: ../../wiki/Design-rationale
 
