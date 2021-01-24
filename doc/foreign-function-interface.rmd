@@ -1,0 +1,79 @@
+---
+title: "Foreign function interface"
+author: Konrad Rudolph
+date: "`r Sys.Date()`"
+output:
+    rmarkdown::html_document:
+        theme: "cerulean"
+        toc: true
+        toc_float:
+            collapsed: false
+        number_sections: true
+        highlight: "tango"
+    md_document:
+        variant: markdown_github
+vignette: >
+    %\VignetteEngine{knitr::rmarkdown}
+    %\VignetteIndexEntry{Foreign function interface}
+    %\VignetteEncoding{UTF-8}
+---
+```{r include=FALSE}
+devtools::load_all()
+import('source-file')
+```
+
+# Foreign function interface
+
+Modules don’t have a built-in foreign function interface yet but it is possible
+to integrate C++ code via the excellent [Rcpp][] package.
+
+## Ad-hoc compilation
+
+As an example, take a look at the `rcpp` module found under `inst/doc`; the
+module consists of a C++ source file which is loaded inside the `__init__.r`
+file:
+
+```{r file='rcpp/__init__.r'}
+```
+
+Here’s the C++ code itself (the example is taken from the Rcpp documentation):
+
+```{r file='rcpp/convolve.cpp'}
+```
+
+This module can be used like any normal module:
+
+```{r}
+rcpp = import('rcpp')
+ls(rcpp)
+rcpp$convolve(1 : 3, 1 : 5)
+```
+
+## Ahead-of-time compilation
+
+Unfortunately, this has a rather glaring flaw: the code is recompiled for each
+new R session. In order to avoid this, we need to compile the code *once* and
+save the resulting dynamic library. There’s no straightforward way of doing
+this, but Rcpp wraps `R CMD SHLIB`.
+
+For the time being, we manually need to trigger compilation by executing the
+[`__install__.r`][install.r] file found in the `inst/doc/rcpp` module path.
+
+```{r echo=FALSE}
+import('rcpp/__install__')
+```
+
+Once that’s done, the actual module code is easy enough:
+
+```{r file='rcpp/compiled.r'}
+```
+
+We can use it like any other module:
+
+```{r}
+compiled = import('rcpp/compiled')
+compiled$convolve(1 : 3, 1 : 5)
+```
+
+[Rcpp]: http://cran.r-project.org/web/packages/Rcpp/index.html
+[install.r]: rcpp/__install__.r
