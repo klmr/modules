@@ -4,9 +4,14 @@
 > ## 🚧 This package is deprecated! 🚧
 >
 > **This package is deprecated and has been replaced by [the package ‘box’](//github.com/klmr/box)**.
-> ‘modules’ v0.9.x is in maintenance mode, and no new features will be
+> ‘modules’ v0.9.*x* is in maintenance mode, and no new features will be
 > implemented. ‘box’ is, for all intents and purposes, the spiritual successor:
 > ‘modules’ v1.0.
+>
+> Please refer to the [migration guide][] for help upgrading from ‘modules’
+> v0.9.*x* to ‘box’.
+
+[migration guide]: https://klmr.me/box/articles/migration.html
 
 [![Travis CI
 status](https://travis-ci.org/klmr/modules.svg?branch=master)](https://travis-ci.org/klmr/modules)
