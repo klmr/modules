@@ -1,6 +1,13 @@
 ![Logo](../../blob/images/r-modules.png?raw=true) Modules for R
 ===============================================================
 
+> ## 🚧 This package is deprecated! 🚧
+>
+> **This package is deprecated and has been replaced by [the package ‘box’](/klmr/box)**.
+> ‘modules’ v0.9.x is in maintenance mode, and no new features will be
+> implemented. ‘box’ is, for all intents and purposes, the spiritual successor:
+> ‘modules’ v1.0.
+
 [![Travis CI
 status](https://travis-ci.org/klmr/modules.svg?branch=master)](https://travis-ci.org/klmr/modules)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/klmr/modules?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
